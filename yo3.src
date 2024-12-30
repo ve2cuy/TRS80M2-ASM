@@ -1,0 +1,32 @@
+; FILE:     YO3/SRC
+; AUTHOR:   VE2CUY
+; DATE:     2024.12.30
+; ASM SOURCE FILE FOR THE TRS-80 MODEL 2 RUNNING TRSDOS
+; -----------------------------------------------------
+; ALEDIT, I (INSERT), BREAK, W FILE-NAME, Q (QUIT)
+; ALASM FILENAME/SRC FILENAME/REL
+; ALLINK FILENAME OUTPUT-NAME $=4000
+; -----------------------------------------------------
+YO3     PSECT
+; DEFINES
+VDLINE  EQU     9       ; PRINTLN ON MODEL2
+GO2DOS  EQU     36
+; START OF PROGRAM
+BEGIN   LD      HL,MSG1
+        CALL    PRINT
+        LD      HL,MSG1
+        CALL    PRINT
+        SVC     GO2DOS ; RETURN to DOS
+;
+MSG1    DEFT    'ICI LA VOIX DES MISTERONS'
+        DEFB    0DH
+MSG2    DEFT    'VE2CUY (C) 2025'
+        DEFB    0DH
+; ------------------------------------------
+; MY PROCS
+PRINT   LD      B,(HL)  ; 
+        LD      C, 0DH  ; END OF STRING BYTE
+        INC     HL      ; WHY?
+        SVC     VDLINE
+        RET
+        END     BEGIN
